@@ -7,14 +7,36 @@
 
 /* You can override the default Infima variables here. */
 :root {
-  --ifm-color-primary: #25c2a0;
-  --ifm-color-primary-dark: rgb(33, 175, 144);
-  --ifm-color-primary-darker: rgb(31, 165, 136);
-  --ifm-color-primary-darkest: rgb(26, 136, 112);
-  --ifm-color-primary-light: rgb(70, 203, 174);
-  --ifm-color-primary-lighter: rgb(102, 212, 189);
-  --ifm-color-primary-lightest: rgb(146, 224, 208);
+  --ifm-color-primary: #7bacc0;
+  --ifm-color-primary-dark: #5f8ab0;
+  --ifm-color-primary-darker: #283890;
+  --ifm-color-primary-darkest: #3a104c;
+  --ifm-color-primary-light: #6997c0;
+  --ifm-color-primary-lighter: #7bacc0;
+  --ifm-color-primary-lightest: #d2ebe4;
   --ifm-code-font-size: 95%;
+  --ifm-link-color: var(--ifm-color-primary-lighter);
+}
+
+.highlight {
+  color: var(--ifm-color-primary-lighter);
+}
+
+.hero--primary {
+  --ifm-hero-background-color: #2b3137;
+  color: #fff;
+}
+
+.button--primary:not(.button--outline) {
+  --ifm-button-background-color: var(--ifm-color-primary-lighter);
+}
+
+.button--primary {
+  --ifm-button-border-color: var(--ifm-color-primary-light);
+}
+
+.hero--primary.heroBanner_src-pages-index-module {
+  text-align: left;
 }
 
 .docusaurus-highlight-code-line {
