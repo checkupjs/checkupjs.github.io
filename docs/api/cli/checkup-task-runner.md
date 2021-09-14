@@ -1,6 +1,6 @@
 ---
 id: checkup-task-runner
-title: Class CheckupTaskRunner
+title: checkup-task-runner
 ---
 
 <!--DOCS_START-->
@@ -26,7 +26,7 @@ Create a CheckupTaskRunner.
 | Param | Type | Description |
 | --- | --- | --- |
 | options | <code>RunOptions</code> | run options that may specify the following items: |
-| options.cwd: | <code>string</code> | The path referring to the root directory that Checkup will run in |
+| options.cwd | <code>string</code> | The path referring to the root directory that Checkup will run in |
 | options.config? | <code>CheckupConfig</code> | Use this configuration, overriding .checkuprc if present. |
 | options.configPath? | <code>string</code> | Use the configuration found at this path, overriding .checkuprc if present. |
 | options.categories? | <code>Array.&lt;string&gt;</code> | Runs specific tasks specified by category. Can be used multiple times. |

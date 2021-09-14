@@ -1,6 +1,6 @@
 ---
 id: get-formatter
-title: function getFormatter
+title: get-formatter
 ---
 
 <!--DOCS_START-->
