@@ -1,7 +1,41 @@
-
 const path = require('path');
 const fs = require('fs');
 const jsdoc2md = require('jsdoc-to-markdown');
+
+const DEFAULT_MARKER = 'DOCS';
+let _placeholder;
+let _marker;
+
+const packages = [
+  'cli'
+];
+
+function setMarker(marker = DEFAULT_MARKER) {
+  _marker = marker;
+  _placeholder = new RegExp(`<!--${_marker}_START-->[\\S\\s]*<!--${_marker}_END-->`);
+}
+
+async function updateApiDoc(package) {
+  const rootDir = path.dirname(__dirname);
+  const packagePath = path.join('node_modules', '@checkup', package, 'lib', 'index.d.ts');
+  const filePathList = getFilePathList(path.resolve(rootDir, packagePath));
+
+  for (let filePath of filePathList) {
+    const fileName = filePath.replace(/^.*[\\\/]/, '');
+    const mdDir = path.join('docs', 'api', package);
+    const mdFilePath = path.resolve(rootDir, mdDir, `${fileName}.md`);
+    const mdContent = getMdContent(mdFilePath, fileName);
+
+    let docsContent = await jsdoc2md.render({
+      files: `${filePath}.js`
+    });
+
+    fs.writeFileSync(
+      mdFilePath,
+      mdContent.replace(_placeholder, `<!--${_marker}_START-->\n${docsContent}\n<!--${_marker}_END-->`)
+    );
+  }
+}
 
 /**
  * Get a list of file paths from index.d.ts
@@ -24,23 +58,31 @@ function getFilePathList(indexPath) {
   return filePathList;
 }
 
+function getMdContent(mdFilePath, fileName) {
+  let mdContent;
+
+  if (fs.existsSync(mdFilePath)) {
+    mdContent = fs.readFileSync(mdFilePath, 'utf8');
+  } else {
+    mdContent = 
+`---
+id: ${fileName}
+title: ${fileName}
+---
+
+<!--${_marker}_START-->
+<!--${_marker}_END-->
+`
+  }
+
+  return mdContent;
+};
+
+
 (async function () {
-  const rootDir = path.dirname(__dirname);
-  const filePathList = getFilePathList(path.resolve(rootDir, 'node_modules/@checkup/cli/lib/index.d.ts'));
-  const docsPlaceholder = /<!--DOCS_START-->[\S\s]*<!--DOCS_END-->/;
+  setMarker();
 
-  for (let filePath of filePathList) {
-    const fileName = filePath.replace(/^.*[\\\/]/, '');
-    const mdFile = path.resolve(rootDir, 'docs/api/cli', `${fileName}.md`);
-    const mdContent = fs.readFileSync(mdFile, 'utf8');
-
-    let docsContent = await jsdoc2md.render({
-      files: `${filePath}.js`
-    });
-
-    fs.writeFileSync(
-      mdFile,
-      mdContent.replace(docsPlaceholder, `<!--DOCS_START-->\n\n${docsContent}\n<!--DOCS_END-->`)
-    );
+  for (let package of packages) {
+    await updateApiDoc(package);
   }
 })();
