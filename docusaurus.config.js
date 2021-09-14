@@ -29,7 +29,7 @@ module.exports = {
         },
         {
           type: 'doc',
-          docId: 'introduction/why-checkup',
+          docId: 'api/cli/get-formatter',
           position: 'left',
           label: 'API',
         },
