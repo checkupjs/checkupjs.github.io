@@ -7,7 +7,7 @@ module.exports = {
     'Checkup is a framework to gather static analysis insights for your projects.',
   tagline: '',
   url: 'https://checkupjs.github.io',
-  baseUrl: '/checkupjs.github.io/',
+  baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
