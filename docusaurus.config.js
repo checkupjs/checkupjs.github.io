@@ -6,13 +6,14 @@ module.exports = {
   title:
     'Checkup is a framework to gather static analysis insights for your projects.',
   tagline: '',
-  url: 'https://your-docusaurus-test-site.com',
+  url: 'https://checkupjs.github.io',
   baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
-  organizationName: 'checkupjs', // Usually your GitHub org/user name.
-  projectName: 'checkup', // Usually your repo name.
+  organizationName: 'checkupjs',
+  projectName: 'checkupjs.github.io',
+  trailingSlash: false,
   themeConfig: {
     navbar: {
       title: 'Checkup',
