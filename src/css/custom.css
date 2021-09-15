@@ -37,6 +37,9 @@
 
 .hero--primary.heroBanner_src-pages-index-module {
   text-align: left;
+  padding-bottom: 20rem;
+  background: no-repeat center 14rem/50%
+    url('/img/checkup-run-transparent-light.png');
 }
 
 .docusaurus-highlight-code-line {
