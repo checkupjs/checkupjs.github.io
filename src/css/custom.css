@@ -19,10 +19,14 @@
 }
 
 .highlight {
+  color: var(--ifm-color-primary-darkest);
+}
+
+html[data-theme='dark'] .highlight {
   color: var(--ifm-color-primary-lighter);
 }
 
-.hero--primary {
+html[data-theme='dark'] .hero--primary {
   --ifm-hero-background-color: #2b3137;
   color: #fff;
 }
@@ -35,9 +39,13 @@
   --ifm-button-border-color: var(--ifm-color-primary-light);
 }
 
-.hero--primary.heroBanner_src-pages-index-module {
+.hero--primary.hero-custom {
   text-align: left;
   padding-bottom: 20rem;
+  background: no-repeat center 14rem/50% url('/img/checkup-run-transparent.png');
+}
+
+html[data-theme='dark'] .hero--primary.hero-custom {
   background: no-repeat center 14rem/50%
     url('/img/checkup-run-transparent-light.png');
 }

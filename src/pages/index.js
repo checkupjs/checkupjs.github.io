@@ -9,7 +9,9 @@ import HomepageFeatures from '../components/HomepageFeatures';
 function HomepageHeader() {
   const { siteConfig } = useDocusaurusContext();
   return (
-    <header className={clsx('hero hero--primary', styles.heroBanner)}>
+    <header
+      className={clsx('hero hero--primary hero-custom', styles.heroBanner)}
+    >
       <div className='container'>
         <h1 className='hero__title'>
           <span className='highlight'>Checkup</span> is a framework to gather
