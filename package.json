@@ -40,6 +40,7 @@
     ]
   },
   "devDependencies": {
-    "@checkup/cli": "1.0.0-beta.11"
+    "@checkup/cli": "^1.0.0-beta.11",
+    "@checkup/core": "^1.0.0-beta.11"
   }
 }

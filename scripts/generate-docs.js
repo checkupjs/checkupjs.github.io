@@ -1,6 +1,7 @@
 const path = require('path');
 const fs = require('fs');
 const jsdoc2md = require('jsdoc-to-markdown');
+const { TypeScriptAnalyzer } = require('@checkup/core')
 
 const DEFAULT_MARKER = 'DOCS';
 let _placeholder;
@@ -21,6 +22,7 @@ async function updateApiDoc(package) {
   const filePathList = getFilePathList(path.resolve(rootDir, packagePath));
 
   for (let filePath of filePathList) {
+    // get file name from file path. e.g. some/path/file.js -> file
     const fileName = filePath.replace(/^.*[\\\/]/, '');
     const mdDir = path.join('docs', 'api', package);
     const mdFilePath = path.resolve(rootDir, mdDir, `${fileName}.md`);
@@ -40,18 +42,19 @@ async function updateApiDoc(package) {
 /**
  * Get a list of file paths from index.d.ts
  * @param {string} indexPath - file path of index.d.ts in checkup
+ *
  * @return {Array} filePathList - a list of file paths of export API in index.d.ts
  */
 function getFilePathList(indexPath) {
-  const lines = fs.readFileSync(indexPath, 'utf-8').toString().split('\n');
-  const dirName = path.dirname(indexPath)
-
+  const dirName = path.dirname(indexPath);
+  const indexSource = fs.readFileSync(indexPath, 'utf-8');
+  
+  let tsAnalyzer = new TypeScriptAnalyzer(indexSource);
   let filePathList = [];
 
-  lines.map((line) => {
-    if (line.includes('export')) {
-      relativePath = line.match(/\'(.*)\'/);
-      filePathList.push(path.resolve(dirName, relativePath[1]));
+  tsAnalyzer.analyze({
+    ExportNamedDeclaration({node}) {
+      filePathList.push(path.resolve(dirName, node.source.value));
     }
   });
 
