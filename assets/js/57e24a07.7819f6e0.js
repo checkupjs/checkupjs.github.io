@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkcheckup_website=self.webpackChunkcheckup_website||[]).push([[718],{1443:function(e){e.exports=JSON.parse('{"allTagsPath":"/checkupjs.github.io/blog/tags","slug":"/checkupjs.github.io/blog/tags/facebook","name":"facebook","count":1,"permalink":"/checkupjs.github.io/blog/tags/facebook"}')}}]);

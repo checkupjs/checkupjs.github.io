@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkcheckup_website=self.webpackChunkcheckup_website||[]).push([[185],{5551:function(u){u.exports=JSON.parse('{"allTagsPath":"/checkupjs.github.io/blog/tags","slug":"/checkupjs.github.io/blog/tags/docusaurus","name":"docusaurus","count":3,"permalink":"/checkupjs.github.io/blog/tags/docusaurus"}')}}]);
