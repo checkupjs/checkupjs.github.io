@@ -5,7 +5,7 @@ module.exports = {
       label: 'Introduction',
       items: [
         'introduction/why-checkup',
-        'introduction/installation',
+        'introduction/getting-started',
         'introduction/configuration',
         'introduction/cli',
       ],

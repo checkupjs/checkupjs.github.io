@@ -42,11 +42,12 @@ html[data-theme='dark'] .hero--primary {
 .hero--primary.hero-custom {
   text-align: left;
   padding-bottom: 20rem;
-  background: no-repeat center 14rem/50% url('/img/checkup-run-transparent.png');
+  background: #2b3137 no-repeat center 14rem/50%
+    url('/img/checkup-run-transparent.png');
 }
 
 html[data-theme='dark'] .hero--primary.hero-custom {
-  background: no-repeat center 14rem/50%
+  background: #2b3137 no-repeat center 14rem/50%
     url('/img/checkup-run-transparent-light.png');
 }
 

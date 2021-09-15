@@ -1,0 +1,141 @@
+---
+id: getting-started
+title: Getting Started
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+Checkup was created to optimize writing tasks that enable you to gather the information that's useful to you, and use that information to make decisions. Checkup allows you to:
+
+- Create and manage Plugins
+- Write Tasks
+- Add Task Actions to provide calls to actions
+- Utilize the SARIF output in external tools
+
+Checkup can be used through the command line, or programmatically through the Node API.
+
+<br />
+
+On this page:
+
+- [Installation](#installation)
+- [Creating a configuration file](#creating-a-configuration-file)
+- [Command line](#command-line)
+- [First Task](#first-task)
+- [Using Analyzers](#using-analyzers)
+- [Generating Results](#generating-results)
+
+## Installation
+
+Checkup has it's own CLI for running tasks, installable via [npm](https://www.npmjs.com/package/@checkup/cli).
+
+<Tabs
+  groupId='package-manager-flavor'
+  defaultValue='npm'
+  values={[
+    { label: 'npm', value: 'npm' },
+    { label: 'Yarn', value: 'yarn' },
+  ]}
+>
+  <TabItem value='npm'>
+
+```bash
+npm i -D @checkup/cli
+```
+
+  </TabItem>
+  <TabItem value='yarn'>
+
+```bash
+yarn add @checkup/cli --dev
+```
+
+  </TabItem>
+</Tabs>
+
+The Node API, which provides a way to run tasks programmatically, can also be accessed through the `@checkup/cli` package.
+
+## Creating a configuration file
+
+Checkup uses a configuration file to define the plugins and tasks to run. You can create a configuration file by running the following command:
+
+```bash
+checkup generate config
+```
+
+This will generate a .checkuprc file in the current directory, with the following contents:
+
+```json
+{
+  "$schema": "https://raw.githubusercontent.com/checkupjs/checkup/master/packages/core/src/schemas/config-schema.json",
+  "excludePaths": [],
+  "plugins": [],
+  "tasks": {}
+}
+```
+
+### Config file options
+
+- `excludePaths`: A list of paths to exclude from analysis.
+- `plugins`: A list of plugins to load.
+- `tasks`: A list of tasks to run.
+
+## Command line
+
+## First Task
+
+<Tabs
+  groupId="js-flavor"
+  defaultValue="ts"
+  values={[
+    {label: 'TypeScript', value: 'ts'},
+    {label: 'JavaScript', value: 'js'}
+  ]
+}>
+  <TabItem value="ts">
+
+```ts title="/tasks/demo-task.ts"
+import { BaseTask, Task } from '@checkup/core';
+import { Result } from 'sarif';
+
+export default class DemoTask extends BaseTask implements Task {
+  taskName = 'demo-task';
+  taskDisplayName = 'Deme Task';
+  description = 'A task for demonstration purposes';
+  category = 'best practices';
+
+  async run(): Promise<Result[]> {
+    // Gather and populate data into results
+
+    return this.results;
+  }
+}
+```
+
+  </TabItem>
+  <TabItem value="js">
+
+```js title="/tasks/demo-task.js"
+const { BaseTask } = require('@checkup/core');
+
+module.exports = class <%- taskClass %> extends BaseTask {
+  taskName = 'demo-task';
+  taskDisplayName = 'Demo Task';
+  description = 'A task for demonstration purposes';
+  category = 'best practices';
+
+  async run() {
+    // Gather and populate data into results
+
+    return this.results;
+  }
+}
+```
+
+  </TabItem>
+</Tabs>
+
+## Using Analyzers
+
+## Generating Results

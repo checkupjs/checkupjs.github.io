@@ -15,16 +15,19 @@ module.exports = {
   projectName: 'checkupjs.github.io',
   trailingSlash: false,
   themeConfig: {
+    colorMode: {
+      defaultMode: 'dark',
+    },
     navbar: {
       title: 'Checkup',
       logo: {
-        alt: 'My Site Logo',
+        alt: 'checkup.js',
         src: 'img/checkup-logo-white.png',
       },
       items: [
         {
           type: 'doc',
-          docId: 'introduction/why-checkup',
+          docId: 'introduction/getting-started',
           position: 'left',
           label: 'Docs',
         },
@@ -84,7 +87,7 @@ module.exports = {
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+      copyright: `Copyright © ${new Date().getFullYear()} CheckupJS. Built with Docusaurus.`,
     },
     prism: {
       theme: lightCodeTheme,
