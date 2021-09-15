@@ -24,11 +24,8 @@ module.exports = {
   apiSidebar: [
     {
       type: 'category',
-      label: 'CLI',
-      items: [
-        'api/cli/get-formatter',
-        'api/cli/checkup-task-runner'
-      ]
-    }
-  ]
+      label: 'API Reference',
+      items: ['api/cli/get-formatter', 'api/cli/checkup-task-runner'],
+    },
+  ],
 };
