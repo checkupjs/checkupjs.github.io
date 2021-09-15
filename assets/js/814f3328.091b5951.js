@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkcheckup_website=self.webpackChunkcheckup_website||[]).push([[535],{5641:function(e){e.exports=JSON.parse('{"title":"Recent posts","items":[{"title":"Welcome","permalink":"/checkupjs.github.io/blog/welcome"},{"title":"Hello","permalink":"/checkupjs.github.io/blog/hello-world"},{"title":"Hola","permalink":"/checkupjs.github.io/blog/hola"}]}')}}]);
