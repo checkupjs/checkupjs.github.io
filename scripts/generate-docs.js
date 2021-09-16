@@ -1,8 +1,10 @@
 const path = require('path');
 const fs = require('fs');
 const jsdoc2md = require('jsdoc-to-markdown');
+const { upperCaseFirst } = require('upper-case-first')
 const { TypeScriptAnalyzer } = require('@checkup/core')
 
+const rootDir = path.dirname(__dirname);
 const DEFAULT_MARKER = 'DOCS';
 let _placeholder;
 let _marker;
@@ -11,13 +13,20 @@ const packages = [
   'cli'
 ];
 
+let apiSidebar = [
+  {
+    type: 'category',
+    label: 'API reference',
+    items: []
+  }
+]
+
 function setMarker(marker = DEFAULT_MARKER) {
   _marker = marker;
   _placeholder = new RegExp(`<!--${_marker}_START-->[\\S\\s]*<!--${_marker}_END-->`);
 }
 
 async function updateApiDoc(package) {
-  const rootDir = path.dirname(__dirname);
   const packagePath = path.join('node_modules', '@checkup', package, 'lib', 'index.d.ts');
   const filePathList = getFilePathList(path.resolve(rootDir, packagePath));
 
@@ -27,6 +36,8 @@ async function updateApiDoc(package) {
     const mdDir = path.join('docs', 'api', package);
     const mdFilePath = path.resolve(rootDir, mdDir, `${fileName}.md`);
     const mdContent = getMdContent(mdFilePath, fileName);
+
+    updateSideBars(fileName, package);
 
     let docsContent = await jsdoc2md.render({
       files: `${filePath}.js`
@@ -81,11 +92,33 @@ title: ${fileName}
   return mdContent;
 };
 
+function updateSideBars(fileName, package) {
+  let itemPath = path.join('api', package, fileName);
+
+  apiSidebar[0].items.map((item) => {
+    if (item.label === upperCaseFirst(package)) {
+      item.items.push(itemPath);
+    }
+  });
+}
+
 
 (async function () {
   setMarker();
 
   for (let package of packages) {
+    apiSidebar[0].items.push(
+      {
+        type: 'category',
+        label: upperCaseFirst(package),
+        items: []
+      }
+    )
+
     await updateApiDoc(package);
   }
+
+  const apiSidebarPath = path.join(rootDir, 'data', 'api-sidebar.js');
+
+  fs.writeFileSync(apiSidebarPath, JSON.stringify(apiSidebar));
 })();
