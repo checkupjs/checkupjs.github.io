@@ -46,7 +46,8 @@
   "devDependencies": {
     "@checkup/cli": "^1.0.0-beta.13",
     "@checkup/core": "^1.0.0-beta.13",
-    "lodash.startcase": "^4.4.0"
+    "lodash.startcase": "^4.4.0",
+    "prettier": "^2.4.1"
   },
   "volta": {
     "node": "14.17.6",

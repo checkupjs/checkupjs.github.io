@@ -1,4 +1,4 @@
-const apiSidebar = require('./data/api-sidebar');
+const apiSidebar = require('./api-sidebar');
 
 module.exports = {
   guidesSidebar: [
@@ -31,5 +31,5 @@ module.exports = {
       collapsed: false,
     },
   ],
-  apiSidebar,
+  apiSidebar: apiSidebar,
 };

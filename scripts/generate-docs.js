@@ -2,29 +2,17 @@ const path = require('path');
 const fs = require('fs');
 const jsdoc2md = require('jsdoc-to-markdown');
 const startCase = require('lodash.startcase');
+const prettier = require('prettier');
 const { TypeScriptAnalyzer } = require('@checkup/core');
 
 const rootDir = path.dirname(__dirname);
-const DEFAULT_MARKER = 'DOCS';
-let _placeholder;
-let _marker;
-
 const packages = ['cli'];
 
-let apiSidebar = [
-  {
-    type: 'category',
-    label: 'API reference',
-    items: [],
-  },
-];
-
-function setMarker(marker = DEFAULT_MARKER) {
-  _marker = marker;
-  _placeholder = new RegExp(
-    `<!--${_marker}_START-->[\\S\\s]*<!--${_marker}_END-->`
-  );
-}
+let apiSidebar = {
+  type: 'category',
+  label: 'API reference',
+  items: [],
+};
 
 async function updateApiDoc(package) {
   const packagePath = path.join(
@@ -37,11 +25,14 @@ async function updateApiDoc(package) {
   const filePathList = getFilePathList(path.resolve(rootDir, packagePath));
 
   for (let filePath of filePathList) {
-    // get file name from file path. e.g. some/path/file.js -> file
-    const fileName = filePath.replace(/^.*[\\\/]/, '');
-    const mdDir = path.join('docs', 'api', package);
-    const mdFilePath = path.resolve(rootDir, mdDir, `${fileName}.md`);
-    const mdContent = getMdContent(mdFilePath, fileName);
+    const fileName = path.basename(filePath);
+    const docsPackageDir = path.join('docs', 'api', package);
+    const markdownFilePath = path.resolve(
+      rootDir,
+      docsPackageDir,
+      `${fileName}.md`
+    );
+    const markdownContent = getMarkdownContent(markdownFilePath, fileName);
 
     updateSideBars(fileName, package);
 
@@ -50,10 +41,10 @@ async function updateApiDoc(package) {
     });
 
     fs.writeFileSync(
-      mdFilePath,
-      mdContent.replace(
-        _placeholder,
-        `<!--${_marker}_START-->\n${docsContent}\n<!--${_marker}_END-->`
+      markdownFilePath,
+      markdownContent.replace(
+        `<!--DOCS_START-->[\\S\\s]*<!--DOCS_END-->`,
+        `<!--DOCS_START-->\n${docsContent}\n<!--DOCS_END-->`
       )
     );
   }
@@ -69,10 +60,10 @@ function getFilePathList(indexPath) {
   const dirName = path.dirname(indexPath);
   const indexSource = fs.readFileSync(indexPath, 'utf-8');
 
-  let tsAnalyzer = new TypeScriptAnalyzer(indexSource);
+  let analyzer = new TypeScriptAnalyzer(indexSource);
   let filePathList = [];
 
-  tsAnalyzer.analyze({
+  analyzer.analyze({
     ExportNamedDeclaration({ node }) {
       filePathList.push(path.resolve(dirName, node.source.value));
     },
@@ -81,7 +72,7 @@ function getFilePathList(indexPath) {
   return filePathList;
 }
 
-function getMdContent(mdFilePath, fileName) {
+function getMarkdownContent(mdFilePath, fileName) {
   let mdContent;
 
   if (fs.existsSync(mdFilePath)) {
@@ -92,8 +83,8 @@ id: ${fileName}
 title: ${fileName}
 ---
 
-<!--${_marker}_START-->
-<!--${_marker}_END-->
+<!--DOCS_START-->
+<!--DOCS_END-->
 `;
   }
 
@@ -103,7 +94,7 @@ title: ${fileName}
 function updateSideBars(fileName, package) {
   let itemPath = path.join('api', package, fileName);
 
-  apiSidebar[0].items.map((item) => {
+  apiSidebar.items.map((item) => {
     if (item.label === startCase(package)) {
       item.items.push(itemPath);
     }
@@ -111,10 +102,9 @@ function updateSideBars(fileName, package) {
 }
 
 (async function () {
-  setMarker();
-
+  debugger;
   for (let package of packages) {
-    apiSidebar[0].items.push({
+    apiSidebar.items.push({
       type: 'category',
       label: startCase(package),
       items: [],
@@ -123,7 +113,11 @@ function updateSideBars(fileName, package) {
     await updateApiDoc(package);
   }
 
-  const apiSidebarPath = path.join(rootDir, 'data', 'api-sidebar.js');
+  const apiSidebarPath = path.join(rootDir, 'api-sidebar.js');
 
-  fs.writeFileSync(apiSidebarPath, JSON.stringify(apiSidebar));
+  const formatted = prettier.format(JSON.stringify([apiSidebar]), {
+    parser: 'babel',
+  });
+
+  fs.writeFileSync(apiSidebarPath, formatted);
 })();
