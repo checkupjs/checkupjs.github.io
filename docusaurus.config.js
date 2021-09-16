@@ -33,7 +33,7 @@ module.exports = {
         },
         {
           type: 'doc',
-          docId: 'api/cli/get-formatter',
+          docId: 'api/@checkup/cli/checkup-task-runner',
           position: 'left',
           label: 'API',
         },

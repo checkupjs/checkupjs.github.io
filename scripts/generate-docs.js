@@ -3,10 +3,11 @@ const fs = require('fs');
 const jsdoc2md = require('jsdoc-to-markdown');
 const startCase = require('lodash.startcase');
 const prettier = require('prettier');
+const { ensureDir } = require('fs-extra');
 const { TypeScriptAnalyzer } = require('@checkup/core');
 
 const rootDir = path.dirname(__dirname);
-const packages = ['cli'];
+const packages = ['@checkup/cli'];
 
 let apiSidebar = {
   type: 'category',
@@ -15,13 +16,7 @@ let apiSidebar = {
 };
 
 async function updateApiDoc(package) {
-  const packagePath = path.join(
-    'node_modules',
-    '@checkup',
-    package,
-    'lib',
-    'index.d.ts'
-  );
+  const packagePath = path.join('node_modules', package, 'lib', 'index.d.ts');
   const filePathList = getFilePathList(path.resolve(rootDir, packagePath));
 
   for (let filePath of filePathList) {
@@ -39,6 +34,8 @@ async function updateApiDoc(package) {
     let docsContent = await jsdoc2md.render({
       files: `${filePath}.js`,
     });
+
+    await ensureDir(docsPackageDir);
 
     fs.writeFileSync(
       markdownFilePath,
@@ -95,7 +92,7 @@ function updateSideBars(fileName, package) {
   let itemPath = path.join('api', package, fileName);
 
   apiSidebar.items.map((item) => {
-    if (item.label === startCase(package)) {
+    if (item.label === encodeURIComponent(package)) {
       item.items.push(itemPath);
     }
   });
@@ -106,7 +103,7 @@ function updateSideBars(fileName, package) {
   for (let package of packages) {
     apiSidebar.items.push({
       type: 'category',
-      label: startCase(package),
+      label: encodeURIComponent(package),
       items: [],
     });
 
@@ -115,9 +112,12 @@ function updateSideBars(fileName, package) {
 
   const apiSidebarPath = path.join(rootDir, 'api-sidebar.js');
 
-  const formatted = prettier.format(JSON.stringify([apiSidebar]), {
-    parser: 'babel',
-  });
+  const formatted = prettier.format(
+    `module.exports = ${JSON.stringify([apiSidebar])};`,
+    {
+      parser: 'babel',
+    }
+  );
 
   fs.writeFileSync(apiSidebarPath, formatted);
 })();
