@@ -1,0 +1,108 @@
+---
+id: plugins
+title: Using Plugins
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+Plugins provide a way to combine Tasks together in logical groupings. They can be configured to run in `@checkup/cli` as a whole plugin, or individually.
+
+## Generate a plugin
+
+Plugins can be generated using the CLI's `generate` command.
+
+```bash
+checkup generate plugin my-plugin
+```
+
+This will generate the following structure:
+
+<Tabs
+  groupId="js-flavor"
+  defaultValue="ts"
+  values={[
+    {label: 'TypeScript', value: 'ts'},
+    {label: 'JavaScript', value: 'js'}
+  ]
+}>
+  <TabItem value="ts">
+
+```bash
+├── .eslintignore
+├── .eslintrc
+├── .gitignore
+├── .prettierrc.js
+├── README.md
+├── __tests__
+│   └── .gitkeep
+├── jest.config.js
+├── package.json
+├── src
+│   ├── index.ts
+│   ├── results
+│   │   └── .gitkeep
+│   ├── tasks
+│   │   └── .gitkeep
+│   └── types
+│       └── index.ts
+├── tsconfig.json
+└── yarn.lock
+```
+
+</TabItem>
+  <TabItem value="js">
+
+```bash
+├── .eslintignore
+├── .eslintrc
+├── .gitignore
+├── .prettierrc.js
+├── README.md
+├── **tests**
+│   └── .gitkeep
+├── jest.config.js
+├── package.json
+├── src
+│   ├── index.js
+│   ├── results
+│   │   └── .gitkeep
+│   └── tasks
+│      └── .gitkeep
+└── yarn.lock
+```
+
+  </TabItem>
+</Tabs>
+
+## Plugin commands
+
+### Build a plugin (TypeScript only)
+
+```bash
+yarn build
+```
+
+Or in watch mode:
+
+```bash
+yarn build:watch
+```
+
+### Run tests
+
+```bash
+yarn test
+```
+
+### Run linting
+
+```bash
+yarn lint
+```
+
+### Generate plugin documentation
+
+```bash
+yarn docs:generate
+```

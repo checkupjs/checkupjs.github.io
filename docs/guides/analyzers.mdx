@@ -1,0 +1,94 @@
+---
+id: analyzers
+title: Using Analyzers
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+Analyzers allow you to perform custom checks on your code. Checkup provides a number of built-in analyzers, but you can also create your own.
+
+## Built-in Analyzers
+
+Some of the built-in analyzers are:
+
+- Generic AST Analyzer
+- ESLint Analyzer
+- Ember Template Lint Analyzer
+- StyleLint Analyzer
+- TypeScript Analyzer
+- JavaScript Analyzer
+- HandleBars Analyzer
+- Dependency Analyzer
+- JSON Analyzer
+
+Analyzers are used in your Tasks to provide a consistent AST parsing and traversing mechanism.
+
+## Using Analyzers
+
+Below is an example of using the JavaScript analyzer:
+
+<Tabs
+groupId="js-flavor"
+defaultValue="ts"
+values={[
+{label: 'TypeScript', value: 'ts'},
+{label: 'JavaScript', value: 'js'}
+]
+}>
+<TabItem value="ts">
+
+```ts title="/tasks/demo-task.ts"
+import { BaseTask, Task, TypeScriptAnalyzer } from '@checkup/core';
+import { Result } from 'sarif';
+
+export default class DemoTask extends BaseTask implements Task {
+  taskName = 'demo-task';
+  taskDisplayName = 'Deme Task';
+  description = 'A task for demonstration purposes';
+  category = 'best practices';
+
+  async run(): Promise<Result[]> {
+    let source = await this.readFile('some-file.ts');
+    let analyzer = new TypeScriptAnalyzer(source);
+
+    analyzer.analyze({
+      // Analyze the AST
+    });
+
+    // Gather and populate data into results
+
+    return this.results;
+  }
+}
+```
+
+  </TabItem>
+  <TabItem value="js">
+
+```js title="/tasks/demo-task.js"
+const { BaseTask, JavaScriptAnalyzer } = require('@checkup/core');
+
+module.exports = class DemoTask extends BaseTask {
+  taskName = 'demo-task';
+  taskDisplayName = 'Demo Task';
+  description = 'A task for demonstration purposes';
+  category = 'best practices';
+
+  async run() {
+    let source = await this.readFile('some-file.js');
+    let analyzer = new JavaScriptAnalyzer(source);
+
+    analyzer.analyze({
+      // Analyze the AST
+    });
+
+    // Gather and populate data into results
+
+    return this.results;
+  }
+};
+```
+
+  </TabItem>
+</Tabs>

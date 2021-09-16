@@ -23,8 +23,6 @@ On this page:
 - [Creating a configuration file](#creating-a-configuration-file)
 - [Command line](#command-line)
 - [First Task](#first-task)
-- [Using Analyzers](#using-analyzers)
-- [Generating Results](#generating-results)
 
 ## Installation
 
@@ -199,7 +197,7 @@ export default class DemoTask extends BaseTask implements Task {
 ```js title="/tasks/demo-task.js"
 const { BaseTask } = require('@checkup/core');
 
-module.exports = class <%- taskClass %> extends BaseTask {
+module.exports = class DemoTask extends BaseTask {
   taskName = 'demo-task';
   taskDisplayName = 'Demo Task';
   description = 'A task for demonstration purposes';
@@ -210,12 +208,8 @@ module.exports = class <%- taskClass %> extends BaseTask {
 
     return this.results;
   }
-}
+};
 ```
 
   </TabItem>
 </Tabs>
-
-## Using Analyzers
-
-## Generating Results

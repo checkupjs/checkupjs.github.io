@@ -4,28 +4,39 @@ module.exports = {
       type: 'category',
       label: 'Introduction',
       items: [
-        'introduction/why-checkup',
-        'introduction/getting-started',
-        'introduction/configuration',
-        'introduction/cli',
+        { type: 'doc', id: 'introduction/why-checkup' },
+        { type: 'doc', id: 'introduction/getting-started' },
       ],
+      collapsed: false,
     },
     {
       type: 'category',
       label: 'Guides',
       items: [
-        'guides/plugins',
-        'guides/tasks',
-        'guides/analyzers',
-        'guides/analyzing-results',
+        { type: 'doc', id: 'guides/plugins' },
+        {
+          type: 'category',
+          label: 'Authoring Tasks',
+          items: [
+            { type: 'doc', id: 'guides/writing-tasks' },
+            { type: 'doc', id: 'guides/analyzers' },
+            { type: 'doc', id: 'guides/generating-results' },
+            { type: 'doc', id: 'guides/analyzing-results' },
+          ],
+          collapsed: false,
+        },
       ],
+      collapsed: false,
     },
   ],
   apiSidebar: [
     {
       type: 'category',
       label: 'API Reference',
-      items: ['api/cli/get-formatter', 'api/cli/checkup-task-runner'],
+      items: [
+        { type: 'doc', id: 'api/cli/get-formatter' },
+        { type: 'doc', id: 'api/cli/checkup-task-runner' },
+      ],
     },
   ],
 };

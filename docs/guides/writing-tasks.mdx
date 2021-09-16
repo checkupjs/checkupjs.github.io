@@ -1,0 +1,94 @@
+---
+id: writing-tasks
+title: Writing a Task
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+Tasks can be added to plugins, which can in turn be configured to run in the CLI.
+
+To add a task to a plugin, use the following command:
+
+```bash
+checkup generate task <task name>
+```
+
+This will generate the following files:
+
+- src/tasks/demo-task.ts
+- **tests**/demo-task-test.ts
+
+## Writing a task
+
+Tasks are written by implementing the `run` method, which is the main entry point for the task. During construction, the task is passed a `TaskContext` object, which contains the following properties:
+
+```typescript
+export interface TaskContext {
+  readonly options: RunOptions;
+  readonly config: CheckupConfig;
+  readonly logBuilder: CheckupLogBuilder;
+  readonly pkg: PackageJson;
+  readonly pkgSource: string;
+  readonly paths: FilePathArray;
+}
+```
+
+The context can be accessed via `this.context`, and properties can be accessed when executing the task's `run` method.
+
+:::tip
+
+Checkup tasks are just plain JavaScript classes. They can be used in any way you like, including using any valid Node APIs.
+
+:::
+
+<Tabs
+groupId="js-flavor"
+defaultValue="ts"
+values={[
+{label: 'TypeScript', value: 'ts'},
+{label: 'JavaScript', value: 'js'}
+]
+}>
+<TabItem value="ts">
+
+```ts title="/tasks/demo-task.ts"
+import { BaseTask, Task } from '@checkup/core';
+import { Result } from 'sarif';
+
+export default class DemoTask extends BaseTask implements Task {
+  taskName = 'demo-task';
+  taskDisplayName = 'Deme Task';
+  description = 'A task for demonstration purposes';
+  category = 'best practices';
+
+  async run(): Promise<Result[]> {
+    // Gather and populate data into results
+
+    return this.results;
+  }
+}
+```
+
+  </TabItem>
+  <TabItem value="js">
+
+```js title="/tasks/demo-task.js"
+const { BaseTask } = require('@checkup/core');
+
+module.exports = class DemoTask extends BaseTask {
+  taskName = 'demo-task';
+  taskDisplayName = 'Demo Task';
+  description = 'A task for demonstration purposes';
+  category = 'best practices';
+
+  async run() {
+    // Gather and populate data into results
+
+    return this.results;
+  }
+};
+```
+
+  </TabItem>
+</Tabs>

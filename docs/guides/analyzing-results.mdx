@@ -1,0 +1,55 @@
+---
+id: analyzing-results
+title: Analyzing Results
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+Results are generated in SARIF format. SARIF is based on JSON and can be viewed in any text editor. For a richer experience the following open-source viewers are provided.
+
+## Viewers
+
+<Tabs
+  groupId='viewers'
+  defaultValue='vs'
+  values={[
+    { label: 'Visual Studio', value: 'vs' },
+    { label: 'Visual Studio Code', value: 'vscode' },
+    { label: 'React Component', value: 'react' },
+  ]}
+>
+  <TabItem value='vs'>
+    <div style={{ 'padding-bottom': '20px' }}>
+      <img src='/img/VSViewer.thumbnail.png' />
+    </div>
+    <a
+      class='button button--primary button--lg'
+      href='https://marketplace.visualstudio.com/items?itemName=WDGIS.MicrosoftSarifViewer'
+    >
+      Install
+    </a>
+  </TabItem>
+  <TabItem value='vscode'>
+    <div style={{ 'padding-bottom': '20px' }}>
+      <img src='/img/VSCodeViewer.thumbnail.png' />
+    </div>
+    <a
+      class='button button--primary button--lg'
+      href='https://marketplace.visualstudio.com/items?itemName=MS-SarifVSCode.sarif-viewer'
+    >
+      Install
+    </a>
+  </TabItem>
+  <TabItem value='react'>
+    <div style={{ 'padding-bottom': '20px' }}>
+      <img src='/img/WebViewer.thumbnail.jpeg' style={{ width: '360px' }} />
+    </div>
+    <a
+      class='button button--primary button--lg'
+      href='https://microsoft.github.io/sarif-web-component/'
+    >
+      Try
+    </a>
+  </TabItem>
+</Tabs>
