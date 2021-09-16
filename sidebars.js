@@ -1,3 +1,5 @@
+const apiSidebar = require('./data/api-sidebar');
+
 module.exports = {
   guidesSidebar: [
     {
@@ -29,14 +31,5 @@ module.exports = {
       collapsed: false,
     },
   ],
-  apiSidebar: [
-    {
-      type: 'category',
-      label: 'API Reference',
-      items: [
-        { type: 'doc', id: 'api/cli/get-formatter' },
-        { type: 'doc', id: 'api/cli/checkup-task-runner' },
-      ],
-    },
-  ],
+  apiSidebar: apiSidebar
 };
