@@ -31,5 +31,5 @@ module.exports = {
       collapsed: false,
     },
   ],
-  apiSidebar: apiSidebar
+  apiSidebar,
 };

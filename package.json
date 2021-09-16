@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "docusaurus": "docusaurus",
+    "docs:generate": "node ./scripts/generate-docs.js",
     "start": "docusaurus start",
     "build": "docusaurus build",
     "docs:update": "node/scripts/generate-docs.js",
@@ -39,9 +40,16 @@
       "last 1 safari version"
     ]
   },
+  "engines": {
+    "node": ">=14"
+  },
   "devDependencies": {
     "@checkup/cli": "^1.0.0-beta.13",
     "@checkup/core": "^1.0.0-beta.13",
-    "upper-case-first": "^2.0.2"
+    "lodash.startcase": "^4.4.0"
+  },
+  "volta": {
+    "node": "14.17.6",
+    "yarn": "1.22.11"
   }
 }
