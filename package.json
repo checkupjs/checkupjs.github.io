@@ -15,6 +15,18 @@
     "write-translations": "docusaurus write-translations",
     "write-heading-ids": "docusaurus write-heading-ids"
   },
+  "browserslist": {
+    "production": [
+      ">0.5%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
   "dependencies": {
     "@docusaurus/core": "^2.0.0-beta.6",
     "@docusaurus/preset-classic": "^2.0.0-beta.6",
@@ -28,27 +40,15 @@
     "react-dom": "^17.0.1",
     "url-loader": "^4.1.1"
   },
-  "browserslist": {
-    "production": [
-      ">0.5%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
-  "engines": {
-    "node": ">=14"
-  },
   "devDependencies": {
-    "@checkup/cli": "^1.0.0-beta.13",
-    "@checkup/core": "^1.0.0-beta.13",
+    "@checkup/cli": "^1.0.0-beta.14",
+    "@checkup/core": "^1.0.0-beta.14",
     "fs-extra": "^10.0.0",
     "lodash.startcase": "^4.4.0",
     "prettier": "^2.4.1"
+  },
+  "engines": {
+    "node": ">=14"
   },
   "volta": {
     "node": "14.17.6",

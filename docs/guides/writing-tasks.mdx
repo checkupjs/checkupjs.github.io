@@ -19,6 +19,12 @@ This will generate the following files:
 - src/tasks/demo-task.ts
 - **tests**/demo-task-test.ts
 
+:::note
+
+You need to be inside a checkup plugin directory in order to run the generate task command.
+
+:::
+
 ## Writing a task
 
 Tasks are written by implementing the `run` method, which is the main entry point for the task. During construction, the task is passed a `TaskContext` object, which contains the following properties:

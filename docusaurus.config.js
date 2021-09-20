@@ -33,7 +33,7 @@ module.exports = {
         },
         {
           type: 'doc',
-          docId: 'api/@checkup/cli/checkup-task-runner',
+          docId: 'api/landing',
           position: 'left',
           label: 'API',
         },

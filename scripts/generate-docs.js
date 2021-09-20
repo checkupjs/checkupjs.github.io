@@ -11,8 +11,9 @@ const packages = ['@checkup/cli'];
 
 let apiSidebar = {
   type: 'category',
-  label: 'API reference',
+  label: 'Packages',
   items: [],
+  collapsed: false,
 };
 
 async function updateApiDoc(package) {
@@ -92,7 +93,7 @@ function updateSideBars(fileName, package) {
   let itemPath = path.join('api', package, fileName);
 
   apiSidebar.items.map((item) => {
-    if (item.label === encodeURIComponent(package)) {
+    if (item.label === package) {
       item.items.push(itemPath);
     }
   });
@@ -103,8 +104,9 @@ function updateSideBars(fileName, package) {
   for (let package of packages) {
     apiSidebar.items.push({
       type: 'category',
-      label: encodeURIComponent(package),
+      label: package,
       items: [],
+      collapsed: false,
     });
 
     await updateApiDoc(package);

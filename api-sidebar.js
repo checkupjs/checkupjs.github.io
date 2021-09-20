@@ -1,16 +1,18 @@
 module.exports = [
   {
     type: "category",
-    label: "API reference",
+    label: "Packages",
     items: [
       {
         type: "category",
-        label: "%40checkup%2Fcli",
+        label: "@checkup/cli",
         items: [
           "api/@checkup/cli/checkup-task-runner",
           "api/@checkup/cli/get-formatter",
         ],
+        collapsed: false,
       },
     ],
+    collapsed: false,
   },
 ];

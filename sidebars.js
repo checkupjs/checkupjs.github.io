@@ -1,4 +1,4 @@
-const apiSidebar = require('./api-sidebar');
+const generatedApiSidebar = require('./api-sidebar');
 
 module.exports = {
   guidesSidebar: [
@@ -31,5 +31,8 @@ module.exports = {
       collapsed: false,
     },
   ],
-  apiSidebar,
+  apiSidebar: [].concat(
+    [{ type: 'doc', id: 'api/landing' }],
+    generatedApiSidebar
+  ),
 };
