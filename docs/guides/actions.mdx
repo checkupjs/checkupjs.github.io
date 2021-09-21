@@ -1,0 +1,103 @@
+---
+id: actions
+title: Triggering Actions
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+Tasks gather data from analyzed files, and sometimes you want to help add emphasis to specific parts of the data. This is accomplished through the use of actions.
+
+Actions are declarative triggers that can be attached to any task. They are ran as a post-processing step on the results of the task, and any triggered actions are
+stored as part of the output.
+
+To add actions to a plugin for a task, use the following command:
+
+```bash
+checkup generate actions <actions name>
+```
+
+You'll be prompted to identify the task you want to add the actions to.
+
+This will generate the following file:
+
+<Tabs
+  groupId='js-flavor'
+  defaultValue='ts'
+  values={[
+    { label: 'TypeScript', value: 'ts' },
+    { label: 'JavaScript', value: 'js' },
+  ]}
+>
+  <TabItem value='ts'>
+
+    - src/actions/actions-name.ts
+
+  </TabItem>
+  <TabItem value='js'>
+
+    - src/actions/actions-name.js
+
+  </TabItem>
+</Tabs>
+
+## Writing an Action
+
+<Tabs
+groupId="js-flavor"
+defaultValue="ts"
+values={[
+{label: 'TypeScript', value: 'ts'},
+{label: 'JavaScript', value: 'js'}
+]
+}>
+<TabItem value="ts">
+
+```ts title="/actions/actions-name.ts"
+import { ActionsEvaluator, TaskConfig } from '@checkup/core';
+import { Result } from 'sarif';
+
+export function evaluateActions(taskResults: Result[], taskConfig: TaskConfig) {
+  let actionsEvaluator = new ActionsEvaluator();
+  let occurances = taskResult.length;
+
+  actionsEvaluator.add({
+    taskName: 'task-name-to-run-actions-on',
+    name: 'task-name-bad-things',
+    summary: 'Reduce number of bad things',
+    details: `${occurances} usages of bad things`,
+    defaultThreshold: 2,
+    items: [`Total occurances: ${occurances}`],
+    input: occurances,
+  });
+
+  return actionsEvaluator.evaluate(taskConfig);
+}
+```
+
+  </TabItem>
+  <TabItem value="js">
+
+```js title="/actions/actions-name.js"
+import { ActionsEvaluator } from '@checkup/core';
+
+export function evaluateActions(taskResults, taskConfig) {
+  let actionsEvaluator = new ActionsEvaluator();
+  let occurances = taskResult.length;
+
+  actionsEvaluator.add({
+    taskName: 'task-name-to-run-actions-on',
+    name: 'task-name-bad-things',
+    summary: 'Reduce number of bad things',
+    details: `${occurances} usages of bad things`,
+    defaultThreshold: 2,
+    items: [`Total occurances: ${occurances}`],
+    input: occurances,
+  });
+
+  return actionsEvaluator.evaluate(taskConfig);
+}
+```
+
+  </TabItem>
+</Tabs>

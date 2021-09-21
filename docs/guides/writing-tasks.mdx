@@ -16,8 +16,27 @@ checkup generate task <task name>
 
 This will generate the following files:
 
-- src/tasks/demo-task.ts
-- **tests**/demo-task-test.ts
+<Tabs
+  groupId='js-flavor'
+  defaultValue='ts'
+  values={[
+    { label: 'TypeScript', value: 'ts' },
+    { label: 'JavaScript', value: 'js' },
+  ]}
+>
+  <TabItem value='ts'>
+
+    - src/tasks/demo-task.ts
+    - tests/demo-task-test.ts
+
+  </TabItem>
+  <TabItem value='js'>
+
+    - src/tasks/demo-task.js
+    - tests/demo-task-test.js
+
+  </TabItem>
+</Tabs>
 
 :::note
 

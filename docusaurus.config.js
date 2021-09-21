@@ -14,7 +14,11 @@ module.exports = {
   organizationName: 'checkupjs',
   projectName: 'checkupjs.github.io',
   trailingSlash: false,
+  plugins: ['@docusaurus/plugin-google-gtag'],
   themeConfig: {
+    gtag: {
+      trackingID: 'G-XE211D585F',
+    },
     colorMode: {
       defaultMode: 'dark',
     },
@@ -22,7 +26,8 @@ module.exports = {
       title: 'Checkup',
       logo: {
         alt: 'checkup.js',
-        src: 'img/checkup-logo-white.png',
+        src: 'img/checkup-logo.jpg',
+        srcDark: 'img/checkup-logo-white.png',
       },
       items: [
         {
