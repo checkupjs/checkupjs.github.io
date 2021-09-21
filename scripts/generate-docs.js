@@ -7,7 +7,8 @@ const { ensureDir } = require('fs-extra');
 const { TypeScriptAnalyzer } = require('@checkup/core');
 
 const rootDir = path.dirname(__dirname);
-const packages = ['@checkup/cli'];
+const packages = ['@checkup/cli', '@checkup/core'];
+const sidebarConfig = require('../api-sidebar-config.json');
 
 let apiSidebar = {
   type: 'category',
@@ -18,32 +19,30 @@ let apiSidebar = {
 
 async function updateApiDoc(package) {
   const packagePath = path.join('node_modules', package, 'lib', 'index.d.ts');
-  const filePathList = getFilePathList(path.resolve(rootDir, packagePath));
+  const exportedModules = getExportedModules(
+    package,
+    path.resolve(rootDir, packagePath)
+  );
 
-  for (let filePath of filePathList) {
-    const fileName = path.basename(filePath);
+  for (let module of exportedModules) {
     const docsPackageDir = path.join('docs', 'api', package);
     const markdownFilePath = path.resolve(
       rootDir,
       docsPackageDir,
-      `${fileName}.md`
+      `${module.name}.md`
     );
-    const markdownContent = getMarkdownContent(markdownFilePath, fileName);
 
-    updateSideBars(fileName, package);
+    updateSideBars(module.name, package);
 
     let docsContent = await jsdoc2md.render({
-      files: `${filePath}.js`,
+      files: `${module.filePath}.js`,
     });
 
     await ensureDir(docsPackageDir);
 
     fs.writeFileSync(
       markdownFilePath,
-      markdownContent.replace(
-        `<!--DOCS_START-->[\\S\\s]*<!--DOCS_END-->`,
-        `<!--DOCS_START-->\n${docsContent}\n<!--DOCS_END-->`
-      )
+      getMarkdownTemplate(module.name, docsContent)
     );
   }
 }
@@ -54,7 +53,7 @@ async function updateApiDoc(package) {
  *
  * @return {Array} filePathList - a list of file paths of export API in index.d.ts
  */
-function getFilePathList(indexPath) {
+function getExportedModules(package, indexPath) {
   const dirName = path.dirname(indexPath);
   const indexSource = fs.readFileSync(indexPath, 'utf-8');
 
@@ -62,31 +61,48 @@ function getFilePathList(indexPath) {
   let filePathList = [];
 
   analyzer.analyze({
-    ExportNamedDeclaration({ node }) {
-      filePathList.push(path.resolve(dirName, node.source.value));
+    ExportDeclaration({ node }) {
+      // filter out specific modules we don't want to include in the documentation
+      if (
+        sidebarConfig[package] &&
+        sidebarConfig[package].excludeModuleNames.some((moduleName) =>
+          node.source.value.includes(moduleName)
+        )
+      ) {
+        return;
+      }
+
+      if (node.source.value.includes('types')) {
+        return;
+      }
+
+      if (node.specifiers && node.specifiers.length === 1) {
+        filePathList.push({
+          filePath: path.resolve(dirName, node.source.value),
+          name: node.specifiers[0].exported.name,
+        });
+        return;
+      }
+
+      filePathList.push({
+        filePath: path.resolve(dirName, node.source.value),
+        name: path.basename(node.source.value),
+      });
     },
   });
 
+  debugger;
   return filePathList;
 }
 
-function getMarkdownContent(mdFilePath, fileName) {
-  let mdContent;
-
-  if (fs.existsSync(mdFilePath)) {
-    mdContent = fs.readFileSync(mdFilePath, 'utf8');
-  } else {
-    mdContent = `---
+function getMarkdownTemplate(fileName, content) {
+  return `---
 id: ${fileName}
 title: ${fileName}
 ---
 
-<!--DOCS_START-->
-<!--DOCS_END-->
+${content}
 `;
-  }
-
-  return mdContent;
 }
 
 function updateSideBars(fileName, package) {
@@ -95,12 +111,12 @@ function updateSideBars(fileName, package) {
   apiSidebar.items.map((item) => {
     if (item.label === package) {
       item.items.push(itemPath);
+      item.items = item.items.sort();
     }
   });
 }
 
 (async function () {
-  debugger;
   for (let package of packages) {
     apiSidebar.items.push({
       type: 'category',

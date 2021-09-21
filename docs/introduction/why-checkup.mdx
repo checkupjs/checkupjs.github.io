@@ -13,8 +13,16 @@ Checkup is a static analysis aggregator that produces a single report of the cod
 
 ## Group Tasks Into Plugins
 
+Checkup follows a similar approach to other static analysis tools that provide plugin systems to provide extensibility. Tasks are grouped into plugins, which are in turn loaded and run in parallel.
+
 ## Author Tasks to Gather Insights
+
+Checkup provides a simple structure to author tasks to gather insights from the codebase. Tasks are written in JavaScript, and can be run alone or as a task in a Checkup plugin.
 
 ## Output Tasks into a Standardized Report
 
+Task output is transformed into a standardized report format. This is done by using the [SARIF](https://docs.oasis-open.org/sarif/sarif/v1.0/os/sarif-v1.0-os.html) format.
+
 ## Leverage the Power of the SARIF Format
+
+SARIF is an emerging standard that provides a consistent, deterministic format for static analysis reports. It adds rich metadata to the report, and provides a standard way to describe the analysis.

@@ -1,0 +1,23 @@
+{
+  "@checkup/cli": null,
+  "@checkup/core": {
+    "excludeModuleNames": [
+      "actions-evaluator",
+      "base-output-writer",
+      "buffered-writer",
+      "config",
+      "console-writer",
+      "file-path-array",
+      "formatters",
+      "get-package-json",
+      "get-paths",
+      "lint",
+      "path",
+      "registered-actions",
+      "registered-task-reporters",
+      "repository",
+      "sarif-log-builder",
+      "today-format"
+    ]
+  }
+}
