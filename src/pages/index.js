@@ -15,7 +15,7 @@ function HomepageHeader() {
       <div className='container'>
         <h1 className='hero__title'>
           <span className='highlight'>Checkup</span> is the easiest way to
-          gather static analysis insights for projects.
+          gather static analysis insights for your projects.
         </h1>
         <p className='hero__subtitle'>{siteConfig.tagline}</p>
         <div className={styles.buttons}>
