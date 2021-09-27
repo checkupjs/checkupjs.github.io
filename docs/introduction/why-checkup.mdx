@@ -11,18 +11,18 @@ This is where Checkup comes in.
 
 Checkup is a static analysis aggregator that produces a single report of the codebase across multiple tools. It uses tasks to run analysis, irrespective of tool, and combines the results into a single report. That report utilizes the Static Analysis Results Interchange Format (SARIF), which is a standard format for static analysis reports.
 
-## Group Tasks Into Plugins
+## Group Results from Multiple Tools into a Single Report
 
-Checkup follows a similar approach to other static analysis tools that provide plugin systems to provide extensibility. Tasks are grouped into plugins, which are in turn loaded and run in parallel.
+Most linters and other static analysis tools operate on a single file at a time. Understanding the relationship between results from multiple tools is difficult, or requires custom scripts to be written.
 
-## Author Tasks to Gather Insights
+Checkup allows you to take a view from a higher level. It allows you to run multiple tools on a single file, or across groups of files, and then combine the results into a single report. This gives you a different picture of your codebase, and allows you to perform analysis with whole project knowledge.
 
-Checkup provides a simple structure to author tasks to gather insights from the codebase. Tasks are written in JavaScript, and can be run alone or as a task in a Checkup plugin.
+## Manage API Migrations from Start to Finish
 
-## Output Tasks into a Standardized Report
+Project maintenance often requires multiple series of API migrations. It's not uncommon to have a large number of API changes that need to be made to a project, which can overlap and be a challenge to track.
 
-Task output is transformed into a standardized report format. This is done by using the [SARIF](https://docs.oasis-open.org/sarif/sarif/v1.0/os/sarif-v1.0-os.html) format.
+Checkup provides a way to quanitfy the changes that need to be made to a project, and to track the progress of those changes. This allows you to gauge the overall effort, and make adjustments to ensure that projects get completed in a timely manner.
 
-## Leverage the Power of the SARIF Format
+## Leverage the Power of Static Analysis Tools
 
-SARIF is an emerging standard that provides a consistent, deterministic format for static analysis reports. It adds rich metadata to the report, and provides a standard way to describe the analysis.
+The static analysis ecosystem is rich in JavaScript. While most of the tools are focused on rule-based, single-file analysis, Checkup is able to leverage the power of the tools to provide a more comprehensive view of the codebase.

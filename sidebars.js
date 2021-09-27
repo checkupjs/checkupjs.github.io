@@ -7,7 +7,10 @@ module.exports = {
       label: 'Introduction',
       items: [
         { type: 'doc', id: 'introduction/why-checkup' },
-        { type: 'doc', id: 'introduction/getting-started' },
+        { type: 'doc', id: 'introduction/quickstart' },
+        { type: 'doc', id: 'introduction/cli' },
+        { type: 'doc', id: 'introduction/node-api' },
+        { type: 'doc', id: 'introduction/config' },
       ],
       collapsed: false,
     },

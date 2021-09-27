@@ -1,0 +1,56 @@
+---
+id: config
+title: Configuration
+---
+
+Checkup uses a `.checkuprc` file to configure the behaviour of the tool. The file is located in the root of the project.
+
+## Configuration file
+
+You can create a configuration file by running the following command:
+
+```bash
+checkup generate config
+```
+
+This will generate a .checkuprc file in the current directory, with the following contents:
+
+```json title=".checkuprc"
+{
+  "$schema": "https://raw.githubusercontent.com/checkupjs/checkup/master/packages/core/src/schemas/config-schema.json",
+  "excludePaths": [],
+  "plugins": [],
+  "tasks": {}
+}
+```
+
+### `excludePaths`
+
+You can exclude paths from the analysis by adding them to the `excludePaths` array, which is a comma separated list of paths.
+
+### `plugins`
+
+Plugins can be configured by adding them to the `plugins` array. Each plugin is a string that represents the name of the plugin.
+
+### `tasks`
+
+Tasks can be individually configured by adding them to the `tasks` object. The key is the name of the task, and the value is either a string or a tuple:
+
+Example:
+
+```json
+{
+  "$schema": "https://raw.githubusercontent.com/checkupjs/checkup/master/packages/core/src/schemas/config-schema.json",
+  "excludePaths": [],
+  "plugins": [],
+  "tasks": {
+    "plugin-name/my-task": "off",
+    "plugin-name/my-other-task": [
+      "on",
+      {
+        "some-option": "some-value"
+      }
+    ]
+  }
+}
+```

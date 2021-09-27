@@ -1,0 +1,64 @@
+---
+id: node-api
+title: Node API
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+In addition to a CLI, Checkup also provides a Node API. This allows for programmatic access to Checkup's functionality.
+
+You can import Checkup's task runner class and use it to run tasks. For example:
+
+<Tabs
+groupId="js-flavor"
+defaultValue="ts"
+values={[
+{label: 'TypeScript', value: 'ts'},
+{label: 'JavaScript', value: 'js'}
+]
+}>
+<TabItem value="ts">
+
+```ts title="/tasks/demo-task.ts"
+import { CheckupTaskRunner, getFormatter } from '@checkup/cli';
+
+let taskRunner = new CheckupTaskRunner({
+  // pass options here
+});
+
+let log = await taskRunner.run();
+
+let formatter = getFormatter({
+  // pass options here
+});
+
+formatter.format(log);
+```
+
+  </TabItem>
+  <TabItem value="js">
+
+```js title="/tasks/demo-task.js"
+const { CheckupTaskRunner, getFormatter } = require('@checkup/cli');
+
+let taskRunner = new CheckupTaskRunner({
+  // pass options here
+});
+
+let log = await taskRunner.run();
+
+let formatter = getFormatter({
+  // pass options here
+});
+
+formatter.format(log);
+```
+
+  </TabItem>
+</Tabs>
+
+See the following API documentation for more information.
+
+- [CheckupTaskRunner](/docs/api/@checkup/cli/CheckupTaskRunner)
+- [getFormatter](/docs/api/@checkup/cli/getFormatter)

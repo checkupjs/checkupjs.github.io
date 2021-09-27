@@ -1,0 +1,86 @@
+---
+id: cli
+title: Command Line Interface
+---
+
+The following are some of the most commonly used commands:
+
+### Get help information
+
+```bash
+checkup --help
+```
+
+### Run all configured Tasks in the current directory
+
+```bash
+checkup run .
+```
+
+### Run checkup using a custom configuration path or URL
+
+By path:
+
+```bash
+checkup run --config ./some/path/.checkuprc
+```
+
+By URL:
+
+```bash
+checkup run --config https://example.com/config.json
+```
+
+### Run a single Task
+
+```bash
+checkup run . --task my-task
+```
+
+### Run Tasks by category
+
+```bash
+checkup run . --category my-category
+```
+
+### Run Tasks by group
+
+```bash
+checkup run . --group my-group
+```
+
+### Provide a custom format for output
+
+```bash
+checkup run . --format checkup-formatter-pretty
+```
+
+### Specify a different plugin directory to load plugins from
+
+```bash
+checkup run . --plugin-base-dir ./my-plugin-dir
+```
+
+### Generate a config file
+
+```bash
+checkup generate config
+```
+
+### Generate a plugin project
+
+```bash
+checkup generate plugin my-plugin
+```
+
+### Generate a task in a plugin directory
+
+```bash
+checkup generate task my-task
+```
+
+### Generate actions in a plugin directory
+
+```bash
+checkup generate action my-action
+```

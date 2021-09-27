@@ -7,8 +7,8 @@ const FeatureList = [
     title: 'Build Tasks to Gather Data',
     description: (
       <>
-        Author static analysis tasks that allow you to gather insights from
-        multiple file types.
+        Author static analysis tasks that allow you to gather insights across
+        single or groups of files. Group output from multiple lint tools.
       </>
     ),
   },
@@ -23,7 +23,7 @@ const FeatureList = [
         >
           SARIF
         </a>{' '}
-        open standard.
+        open standard. Analyze output using integrations in popular IDEs.
       </>
     ),
   },
@@ -32,7 +32,8 @@ const FeatureList = [
     description: (
       <>
         Provide insights that help make sure your codebase is clean and
-        maintainable to improve developer productivity.
+        maintainable to improve developer productivity. Monitor migrations to
+        track progress.
       </>
     ),
   },

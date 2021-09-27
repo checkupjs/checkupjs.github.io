@@ -14,10 +14,24 @@ module.exports = {
   organizationName: 'checkupjs',
   projectName: 'checkupjs.github.io',
   trailingSlash: false,
-  plugins: ['@docusaurus/plugin-google-gtag'],
   themeConfig: {
     gtag: {
       trackingID: 'G-XE211D585F',
+    },
+    algolia: {
+      apiKey: 'YOUR_API_KEY',
+      indexName: 'YOUR_INDEX_NAME',
+
+      // Optional: see doc section below
+      contextualSearch: true,
+
+      // Optional: see doc section below
+      appId: 'YOUR_APP_ID',
+
+      // Optional: Algolia search parameters
+      searchParameters: {},
+
+      //... other Algolia params
     },
     colorMode: {
       defaultMode: 'dark',
@@ -32,7 +46,7 @@ module.exports = {
       items: [
         {
           type: 'doc',
-          docId: 'introduction/getting-started',
+          docId: 'introduction/quickstart',
           position: 'left',
           label: 'Docs',
         },

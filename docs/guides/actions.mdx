@@ -25,8 +25,8 @@ This will generate the following file:
   groupId='js-flavor'
   defaultValue='ts'
   values={[
-    { label: 'TypeScript', value: 'ts' },
-    { label: 'JavaScript', value: 'js' },
+    { label: 'TypeScript project', value: 'ts' },
+    { label: 'JavaScript project', value: 'js' },
   ]}
 >
   <TabItem value='ts'>
@@ -42,6 +42,9 @@ This will generate the following file:
 </Tabs>
 
 ## Writing an Action
+
+Actions are written in a declarative fashion, by evaluating specific values from the task results. The following is an example of a simple action that is triggered
+when the occurances of the task results are greater than a certain threshold:
 
 <Tabs
 groupId="js-flavor"
@@ -79,9 +82,9 @@ export function evaluateActions(taskResults: Result[], taskConfig: TaskConfig) {
   <TabItem value="js">
 
 ```js title="/actions/actions-name.js"
-import { ActionsEvaluator } from '@checkup/core';
+const { ActionsEvaluator } = require('@checkup/core');
 
-export function evaluateActions(taskResults, taskConfig) {
+module.exports = function evaluateActions(taskResults, taskConfig) {
   let actionsEvaluator = new ActionsEvaluator();
   let occurances = taskResult.length;
 
@@ -96,7 +99,7 @@ export function evaluateActions(taskResults, taskConfig) {
   });
 
   return actionsEvaluator.evaluate(taskConfig);
-}
+};
 ```
 
   </TabItem>
