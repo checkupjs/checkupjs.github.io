@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/"
                        xmlns:moz="http://www.mozilla.org/2006/browser/search/">
-  <ShortName>Checkup is a framework to gather static analysis insights for your projects.</ShortName>
-  <Description>Search Checkup is a framework to gather static analysis insights for your projects.</Description>
+  <ShortName>Checkupjs</ShortName>
+  <Description>Search Checkupjs</Description>
   <InputEncoding>UTF-8</InputEncoding>
   <Image width="16" height="16" type="image/x-icon">https://checkupjs.github.io/img/favicon.ico</Image>
   <Url type="text/html" method="get" template="https://checkupjs.github.io/search?q={searchTerms}"/>
