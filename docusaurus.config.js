@@ -3,8 +3,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 
 /** @type {import('@docusaurus/types').DocusaurusConfig} */
 module.exports = {
-  title:
-    'Checkup is a framework to gather static analysis insights for your projects.',
+  title: 'Checkupjs',
   tagline: '',
   url: 'https://checkupjs.github.io',
   baseUrl: '/',
