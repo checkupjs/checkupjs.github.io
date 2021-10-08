@@ -66,8 +66,8 @@ module.exports = {
           title: 'Docs',
           items: [
             {
-              label: 'Tutorial',
-              to: '/docs/introduction/why-checkup',
+              label: 'Quickstart',
+              to: '/docs/introduction/quickstart',
             },
           ],
         },
@@ -76,15 +76,15 @@ module.exports = {
           items: [
             {
               label: 'Stack Overflow',
-              href: 'https://stackoverflow.com/questions/tagged/checkup',
+              href: 'https://stackoverflow.com/questions/tagged/checkupjs',
             },
             {
               label: 'Discord',
-              href: 'https://discordapp.com/invite/checkup',
+              href: 'https://discordapp.com/invite/checkupjs',
             },
             {
               label: 'Twitter',
-              href: 'https://twitter.com/checkup',
+              href: 'https://twitter.com/checkupjs',
             },
           ],
         },
