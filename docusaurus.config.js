@@ -18,14 +18,11 @@ module.exports = {
       trackingID: 'G-XE211D585F',
     },
     algolia: {
-      apiKey: 'b16c905839d960a145a94f688dee75b1',
+      apiKey: '18cc0f19dced6db06de58934f2cc8d08',
       indexName: 'checkupjs',
 
       // Optional: see doc section below
       contextualSearch: true,
-
-      // Optional: see doc section below
-      appId: 'BH4D9OD16A',
 
       // Optional: Algolia search parameters
       searchParameters: {},
