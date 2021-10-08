@@ -9,7 +9,7 @@
     "build": "docusaurus build",
     "docs:update": "node/scripts/generate-docs.js",
     "swizzle": "docusaurus swizzle",
-    "deploy": "docusaurus deploy",
+    "deploy": "DEPLOYMENT_BRANCH=gh-pages docusaurus deploy",
     "clear": "docusaurus clear",
     "serve": "docusaurus serve",
     "write-translations": "docusaurus write-translations",
