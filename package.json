@@ -42,8 +42,8 @@
     "url-loader": "^4.1.1"
   },
   "devDependencies": {
-    "@checkup/cli": "^1.0.0-beta.14",
-    "@checkup/core": "^1.0.0-beta.14",
+    "@checkup/cli": "^1.2.0",
+    "@checkup/core": "^1.2.0",
     "fs-extra": "^10.0.0",
     "lodash.sortby": "^4.7.0",
     "lodash.startcase": "^4.4.0",
