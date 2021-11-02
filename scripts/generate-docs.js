@@ -23,7 +23,7 @@ async function updateApiDoc(package) {
     package,
     path.resolve(rootDir, packagePath)
   );
-
+  debugger;
   for (let module of exportedModules) {
     const docsPackageDir = path.join('docs', 'api', package);
     const markdownFilePath = path.resolve(
@@ -59,6 +59,13 @@ function getExportedModules(package, indexPath) {
 
   let analyzer = new TypeScriptAnalyzer(indexSource);
   let filePathList = [];
+  let hasDefaultExportedClass = (node) => {
+    return (
+      node.specifiers &&
+      node.specifiers[0].local.name === 'default' &&
+      startsWithCapital(node.specifiers[0].exported.name)
+    );
+  };
 
   analyzer.analyze({
     ExportDeclaration({ node }) {
@@ -76,7 +83,7 @@ function getExportedModules(package, indexPath) {
         return;
       }
 
-      if (node.specifiers && node.specifiers.length === 1) {
+      if (hasDefaultExportedClass(node)) {
         filePathList.push({
           filePath: path.resolve(dirName, node.source.value),
           name: node.specifiers[0].exported.name,
@@ -91,7 +98,6 @@ function getExportedModules(package, indexPath) {
     },
   });
 
-  debugger;
   return filePathList;
 }
 
@@ -114,6 +120,10 @@ function updateSideBars(fileName, package) {
       item.items = item.items.sort();
     }
   });
+}
+
+function startsWithCapital(word) {
+  return /[A-Z]/.test(word.charAt(0));
 }
 
 (async function () {

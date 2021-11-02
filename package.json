@@ -7,7 +7,6 @@
     "docs:generate": "node ./scripts/generate-docs.js",
     "start": "docusaurus start",
     "build": "docusaurus build",
-    "docs:update": "node/scripts/generate-docs.js",
     "swizzle": "docusaurus swizzle",
     "deploy": "DEPLOYMENT_BRANCH=gh-pages docusaurus deploy",
     "clear": "docusaurus clear",

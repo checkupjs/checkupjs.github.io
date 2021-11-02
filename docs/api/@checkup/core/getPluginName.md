@@ -1,6 +1,6 @@
 ---
-id: plugin-name
-title: plugin-name
+id: getPluginName
+title: getPluginName
 ---
 
 <a name="getPluginName"></a>
