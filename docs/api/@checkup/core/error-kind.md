@@ -13,14 +13,15 @@ title: error-kind
 
 <a name="ERROR_BY_KIND"></a>
 
-## ERROR\_BY\_KIND
+## ERROR_BY_KIND
+
 An object containing a mapping of ErrorKind to ErrorDetails.
 
 **Kind**: global variable  
 <a name="ErrorKind"></a>
 
 ## ErrorKind : <code>enum</code>
+
 Enum containing kinds of errors used in a CheckupError instance.
 
-**Kind**: global enum  
-
+**Kind**: global enum

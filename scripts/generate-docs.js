@@ -23,7 +23,7 @@ async function updateApiDoc(package) {
     package,
     path.resolve(rootDir, packagePath)
   );
-  debugger;
+
   for (let module of exportedModules) {
     const docsPackageDir = path.join('docs', 'api', package);
     const markdownFilePath = path.resolve(
@@ -39,11 +39,12 @@ async function updateApiDoc(package) {
     });
 
     await ensureDir(docsPackageDir);
-
-    fs.writeFileSync(
-      markdownFilePath,
-      getMarkdownTemplate(module.name, docsContent)
+    let formatted = prettier.format(
+      getMarkdownTemplate(module.name, docsContent),
+      { parser: 'markdown' }
     );
+
+    fs.writeFileSync(markdownFilePath, formatted);
   }
 }
 

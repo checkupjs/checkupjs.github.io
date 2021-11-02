@@ -17,23 +17,24 @@ title: normalize-package-name
 <a name="normalizePackageName"></a>
 
 ## normalizePackageName(name) ⇒ <code>string</code>
+
 Brings package name to correct format based on prefix
 
 **Kind**: global function  
-**Returns**: <code>string</code> - Normalized name of the package  
+**Returns**: <code>string</code> - Normalized name of the package
 
-| Param | Type | Description |
-| --- | --- | --- |
-| name | <code>string</code> | The name of the package. |
+| Param | Type                | Description              |
+| ----- | ------------------- | ------------------------ |
+| name  | <code>string</code> | The name of the package. |
 
-
-* [normalizePackageName(name)](#normalizePackageName) ⇒ <code>string</code>
-    * [~normalizedName](#normalizePackageName..normalizedName)
-    * [~scopedPackageShortcutRegex](#normalizePackageName..scopedPackageShortcutRegex)
+- [normalizePackageName(name)](#normalizePackageName) ⇒ <code>string</code>
+  - [~normalizedName](#normalizePackageName..normalizedName)
+  - [~scopedPackageShortcutRegex](#normalizePackageName..scopedPackageShortcutRegex)
 
 <a name="normalizePackageName..normalizedName"></a>
 
 ### normalizePackageName~normalizedName
+
 for scoped packages, insert the prefix after the first / unless
 the path is already @scope/eslint or @scope/eslint-xxx-yyy
 
@@ -41,6 +42,7 @@ the path is already @scope/eslint or @scope/eslint-xxx-yyy
 <a name="normalizePackageName..scopedPackageShortcutRegex"></a>
 
 ### normalizePackageName~scopedPackageShortcutRegex
+
 it's a scoped package
 package name is the prefix, or just a username
 
@@ -48,13 +50,12 @@ package name is the prefix, or just a username
 <a name="getShorthandName"></a>
 
 ## getShorthandName(fullName) ⇒ <code>string</code>
+
 Removes the prefix from a fullName.
 
 **Kind**: global function  
-**Returns**: <code>string</code> - The term without prefix.  
+**Returns**: <code>string</code> - The term without prefix.
 
-| Param | Type | Description |
-| --- | --- | --- |
+| Param    | Type                | Description                         |
+| -------- | ------------------- | ----------------------------------- |
 | fullName | <code>string</code> | The term which may have the prefix. |
-
-
