@@ -24,6 +24,7 @@ module.exports = {
           label: 'Authoring Tasks',
           items: [
             { type: 'doc', id: 'guides/writing-tasks' },
+            { type: 'doc', id: 'guides/writing-migration-tasks' },
             { type: 'doc', id: 'guides/actions' },
             { type: 'doc', id: 'guides/analyzers' },
             { type: 'doc', id: 'guides/generating-results' },
