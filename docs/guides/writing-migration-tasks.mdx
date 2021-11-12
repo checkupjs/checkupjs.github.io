@@ -16,7 +16,7 @@ Migration tasks are a subclass of the [BaseTask](docs/api/@checkup/core/BaseTask
 
 ## A simple migration task
 
-Below is a simple, contrived example of a migration task.
+Below is a simple example of a migration task.
 
 <Tabs
 groupId="js-flavor"
@@ -84,7 +84,7 @@ export default class MyMigrationTask extends BaseMigrationTask implements Task {
   <TabItem value="js">
 
 ```js title="/tasks/my-migration-task.js"
-const { BaseMigrationTask, Task, TaskContext } require('@checkup/core');
+const { BaseMigrationTask, Task, TaskContext } = require('@checkup/core');
 
 module.exports = class MyMigrationTask extends BaseMigrationTask {
   taskName = 'my-migration';
@@ -137,7 +137,7 @@ module.exports = class MyMigrationTask extends BaseMigrationTask {
   getResults() {
     // Get results from one or more of the analyzers
   }
-}
+};
 ```
 
   </TabItem>
