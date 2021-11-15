@@ -1,0 +1,141 @@
+---
+id: writing-validation-tasks
+title: Writing a Validation Task
+---
+
+## Writing a Validation Task
+
+Similar to migration tasks, validation tasks are a specialized type of task that are use to ensure your project conforms to a set of requirements.
+
+Some examples of validation tasks include
+
+- ensuring your project has a group of related dependencies that match a minimum verison set
+- validating whether your project is a valid ESM package
+- ensuring that your project contains a valid set of configuration and packages for accessibility testing
+- many more...
+
+Validation tasks are a subclass of the [BaseTask](docs/api/@checkup/core/BaseTask) class, and have migration-specific methods and properties that make writing them easier. More details on what's included in this class can be found in the [BaseValidationTask](/docs/api/@checkup/core/BaseValidationTask) documentation.
+
+## A simple migration task
+
+Below is a simple example of a validation task.
+
+<Tabs
+groupId="js-flavor"
+defaultValue="ts"
+values={[
+{label: 'TypeScript', value: 'ts'},
+{label: 'JavaScript', value: 'js'}
+]
+}>
+<TabItem value="ts">
+
+```ts title="/tasks/my-validation-task.ts"
+import { BaseValidationTask, Task, TaskContext } from '@checkup/core';
+import { Result } from 'sarif';
+
+export default class MyValidationTask
+  extends BaseValidationTask
+  implements Task
+{
+  taskName = 'my-validation';
+  taskDisplayName = 'My Validation';
+  description = 'Validates a package';
+  category = 'validation';
+
+  constructor(pluginName: string, context: TaskContext) {
+    super('My Validation', pluginName, context);
+
+    this.addRuleComponentMetadata();
+
+    this.addValidationStep('First step is valid', () => {
+      return {
+        isValid: validateFirstStep(),
+      };
+    });
+
+    this.addValidationStep('Second step is valid', () => {
+      return {
+        isValid: validateSecondStep(),
+      };
+    });
+  }
+
+  async run(): Promise<Result[]> {
+    let validationResults = await this.validate();
+
+    // iterating the validation results and explicitly adding to the SARIF log
+    // will allow consumers to add additional properties to the results
+    for (let [messageText, validationResult] of validationResults) {
+      this.addValidationResult(messageText, validationResult.isValid);
+    }
+
+    return this.results;
+  }
+}
+```
+
+  </TabItem>
+  <TabItem value="js">
+
+```js title="/tasks/my-migration-task.js"
+const { BaseValidationTask, Task, TaskContext } = require('@checkup/core');
+
+module.exports = class MyValidationTask extends BaseValidationTask {
+  taskName = 'my-validation';
+  taskDisplayName = 'My Validation';
+  description = 'Validates a package';
+  category = 'validation';
+
+  constructor(pluginName, context) {
+    super('My Validation', pluginName, context);
+
+    this.addRuleComponentMetadata();
+
+    this.addValidationStep('First step is valid', () => {
+      return {
+        isValid: validateFirstStep(),
+      };
+    });
+
+    this.addValidationStep('Second step is valid', () => {
+      return {
+        isValid: validateSecondStep(),
+      };
+    });
+  }
+
+  async run() {
+    let validationResults = await this.validate();
+
+    // iterating the validation results and explicitly adding to the SARIF log
+    // will allow consumers to add additional properties to the results
+    for (let [messageText, validationResult] of validationResults) {
+      this.addValidationResult(messageText, validationResult.isValid);
+    }
+
+    return this.results;
+  }
+};
+```
+
+  </TabItem>
+</Tabs>
+
+Coupling this with the pretty formatter, we can get a full picture of the scope of our validation.
+
+```shell
+checkup run . --task my-validation --format pretty
+
+Checkup report generated for checkup-app v1.3.0 (46 files analyzed)
+
+This project is 100 days old, with 90 days active days, 375 commits and 46 files.
+
+Checkup ran the following task(s) successfully:
+
+My Validation
+=================
+Validation passed
+  ✔ First step is valid
+  ✔ Second step is valid
+```

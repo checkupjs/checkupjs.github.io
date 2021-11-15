@@ -63,6 +63,15 @@ html[data-theme='dark'] .docusaurus-highlight-code-line {
   background-color: rgba(0, 0, 0, 0.3);
 }
 
+@media only screen and (max-width: 600px) {
+  html[data-theme='dark'] .hero--primary.hero-custom,
+  .hero--primary.hero-custom {
+    padding-bottom: 17rem;
+    background-position: bottom;
+    background-size: 90%;
+  }
+}
+
 .docusaurus-highlight-code-line {
   background-color: rgba(0, 0, 0, 0.1);
   display: block;
