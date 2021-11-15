@@ -3,7 +3,7 @@ id: writing-validation-tasks
 title: Writing a Validation Task
 ---
 
-# Writing a Validation Task
+## Writing a Validation Task
 
 Similar to migration tasks, validation tasks are a specialized type of task that are use to ensure your project conforms to a set of requirements.
 
@@ -14,7 +14,7 @@ Some examples of validation tasks include
 - ensuring that your project contains a valid set of configuration and packages for accessibility testing
 - many more...
 
-Validation tasks are a subclass of the [BaseTask](docs/api/@checkup/core/BaseTask) class, and have migration-specific methods and properties that make writing them easier. More details on what's included in this class can be found in the [BaseValidationTask](docs/api/@checkup/core/BaseValidationTask) documentation.
+Validation tasks are a subclass of the [BaseTask](docs/api/@checkup/core/BaseTask) class, and have migration-specific methods and properties that make writing them easier. More details on what's included in this class can be found in the [BaseValidationTask](/docs/api/@checkup/core/BaseValidationTask) documentation.
 
 ## A simple migration task
 
@@ -48,41 +48,29 @@ export default class MyValidationTask
 
     this.addRuleComponentMetadata();
 
-    this.addValidationStep(
-      'Contains "type" property set to "module" in package.json',
-      () => {
-        return {
-          isValid: true,
-        };
-      }
-    );
+    this.addValidationStep('First step is valid', () => {
+      return {
+        isValid: validateFirstStep(),
+      };
+    });
+
+    this.addValidationStep('Second step is valid', () => {
+      return {
+        isValid: validateSecondStep(),
+      };
+    });
   }
 
   async run(): Promise<Result[]> {
-    let rawData = getResults();
+    let validationResults = await this.validate();
 
-    rawData.forEach((result) => {
-      let id = result.featureId;
-      let feature = this.features.get(id);
-
-      if (feature) {
-        this.addFeatureResult(feature, {
-          location: {
-            uri: lintResult.filePath,
-            startColumn: lintResult.column,
-            startLine: lintResult.line,
-            endColumn: lintResult.endColumn,
-            endLine: lintResult.endLine,
-          },
-        });
-      }
-    });
+    // iterating the validation results and explicitly adding to the SARIF log
+    // will allow consumers to add additional properties to the results
+    for (let [messageText, validationResult] of validationResults) {
+      this.addValidationResult(messageText, validationResult.isValid);
+    }
 
     return this.results;
-  }
-
-  getResults() {
-    // Get results from one or more of the analyzers
   }
 }
 ```
@@ -93,56 +81,40 @@ export default class MyValidationTask
 ```js title="/tasks/my-migration-task.js"
 const { BaseValidationTask, Task, TaskContext } = require('@checkup/core');
 
-module.exports = class MyMigrationTask extends BaseValidationTask {
+module.exports = class MyValidationTask extends BaseValidationTask {
   taskName = 'my-validation';
-  taskDisplayName = 'My Migration';
-  description = 'Tracks the migration status of my stuff';
-  category = 'migrations';
+  taskDisplayName = 'My Validation';
+  description = 'Validates a package';
+  category = 'validation';
 
   constructor(pluginName, context) {
-    super('My Migration', pluginName, context);
+    super('My Validation', pluginName, context);
 
     this.addRuleComponentMetadata();
 
-    // featureIds are typically the same as the lint ruleIds, but can be different
-    this.addFeature('some-feature-id', {
-      featureName: 'Some Feature Name',
-      message: "Use this feature instead, it's better",
-      helpUri: 'https://feature-docs/somewhere.com',
+    this.addValidationStep('First step is valid', () => {
+      return {
+        isValid: validateFirstStep(),
+      };
     });
 
-    this.addFeature('another-feature-id', {
-      featureName: 'Another Feature Name',
-      message: "Use this other feature instead, it's better",
-      helpUri: 'https://feature-docs/anywhere.com',
+    this.addValidationStep('Second step is valid', () => {
+      return {
+        isValid: validateSecondStep(),
+      };
     });
   }
 
   async run() {
-    let rawData = getResults();
+    let validationResults = await this.validate();
 
-    rawData.forEach((result) => {
-      let id = result.featureId;
-      let feature = this.features.get(id);
-
-      if (feature) {
-        this.addFeatureResult(feature, {
-          location: {
-            uri: lintResult.filePath,
-            startColumn: lintResult.column,
-            startLine: lintResult.line,
-            endColumn: lintResult.endColumn,
-            endLine: lintResult.endLine,
-          },
-        });
-      }
-    });
+    // iterating the validation results and explicitly adding to the SARIF log
+    // will allow consumers to add additional properties to the results
+    for (let [messageText, validationResult] of validationResults) {
+      this.addValidationResult(messageText, validationResult.isValid);
+    }
 
     return this.results;
-  }
-
-  getResults() {
-    // Get results from one or more of the analyzers
   }
 };
 ```
@@ -151,3 +123,19 @@ module.exports = class MyMigrationTask extends BaseValidationTask {
 </Tabs>
 
 Coupling this with the pretty formatter, we can get a full picture of the scope of our validation.
+
+```shell
+checkup run . --task my-validation --format pretty
+
+Checkup report generated for checkup-app v1.3.0 (46 files analyzed)
+
+This project is 100 days old, with 90 days active days, 375 commits and 46 files.
+
+Checkup ran the following task(s) successfully:
+
+My Validation
+=================
+Validation passed
+  ✔ First step is valid
+  ✔ Second step is valid
+```

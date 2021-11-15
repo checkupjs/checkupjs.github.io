@@ -12,7 +12,7 @@ Migration tasks are a specialized type of task that are used to help identify fe
 
 A good example of this is the [Ember Octane migration task](https://github.com/checkupjs/checkup/blob/cf589b9d511a686d780c8fba77381095df7df11a/packages/checkup-plugin-ember/src/tasks/ember-octane-migration-status-task.ts). The task is responsible for identifying all of the Ember Classic features that need to be migrated, and then running the appropriate lint rules to identify the changes that need to be made.
 
-Migration tasks are a subclass of the [BaseTask](docs/api/@checkup/core/BaseTask) class, and have migration-specific methods and properties that make writing them easier. More details on what's included in this class can be found in the [BaseMigrationTask](docs/api/@checkup/core/BaseMigrationTask) documentation.
+Migration tasks are a subclass of the [BaseTask](docs/api/@checkup/core/BaseTask) class, and have migration-specific methods and properties that make writing them easier. More details on what's included in this class can be found in the [BaseMigrationTask](/docs/api/@checkup/core/BaseMigrationTask) documentation.
 
 ## A simple migration task
 
@@ -146,7 +146,7 @@ module.exports = class MyMigrationTask extends BaseMigrationTask {
 Coupling this with the pretty formatter, we can get a full picture of the scope of our migration.
 
 ```shell
-$ checkup run . --task my-migration-task --format pretty
+$ checkup run . --task my-migration --format pretty
 
 Checkup report generated for checkup-app v1.3.0 (46 files analyzed)
 
