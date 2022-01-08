@@ -50,7 +50,7 @@ The Node API, which provides a way to run tasks programmatically, can also be ac
 Checkup uses a configuration file to define the plugins and tasks to run. You can create a configuration file by running the following command in the root of your project:
 
 ```bash
-checkup generate config
+yarn checkup generate config
 ```
 
 This will generate a .checkuprc file in the current directory, with the following contents:
@@ -114,7 +114,7 @@ Then, edit the `.checkuprc` file that was created and add the plugin to your con
 Finally, run the CLI in the root of your project to run your tasks:
 
 ```bash
-checkup run .
+yarn checkup run .
 ```
 
 Checkup will run the tasks in the configured plugins, and output the results to a SARIF file by default.
