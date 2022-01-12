@@ -9,9 +9,29 @@ Checkup uses a `.checkuprc` file to configure the behaviour of the tool. The fil
 
 You can create a configuration file by running the following command:
 
+<Tabs
+  groupId='package-manager-flavor'
+  defaultValue='npm'
+  values={[
+    { label: 'npm', value: 'npm' },
+    { label: 'Yarn', value: 'yarn' },
+  ]}
+>
+  <TabItem value='npm'>
+
+```bash
+npx checkup generate config
+```
+
+  </TabItem>
+  <TabItem value='yarn'>
+
 ```bash
 yarn checkup generate config
 ```
+
+  </TabItem>
+</Tabs>
 
 This will generate a .checkuprc file in the current directory, with the following contents:
 

@@ -12,9 +12,29 @@ Plugins provide a way to combine Tasks together in logical groupings. They can b
 
 Plugins can be generated using the CLI's `generate` command.
 
+<Tabs
+  groupId='package-manager-flavor'
+  defaultValue='npm'
+  values={[
+    { label: 'npm', value: 'npm' },
+    { label: 'Yarn', value: 'yarn' },
+  ]}
+>
+  <TabItem value='npm'>
+
 ```bash
-yarn checkup generate plugin my-plugin
+npx checkup generate plugin <plugin-name>
 ```
+
+  </TabItem>
+  <TabItem value='yarn'>
+
+```bash
+yarn checkup generate plugin <plugin-name>
+```
+
+  </TabItem>
+</Tabs>
 
 This will generate the following structure:
 

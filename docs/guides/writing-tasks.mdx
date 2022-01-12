@@ -10,9 +10,29 @@ Tasks can be added to plugins, which can in turn be configured to run in the CLI
 
 To add a task to a plugin, use the following command:
 
+<Tabs
+  groupId='package-manager-flavor'
+  defaultValue='npm'
+  values={[
+    { label: 'npm', value: 'npm' },
+    { label: 'Yarn', value: 'yarn' },
+  ]}
+>
+  <TabItem value='npm'>
+
+```bash
+npx checkup generate task <task name>
+```
+
+  </TabItem>
+  <TabItem value='yarn'>
+
 ```bash
 yarn checkup generate task <task name>
 ```
+
+  </TabItem>
+</Tabs>
 
 This will generate the following files:
 
