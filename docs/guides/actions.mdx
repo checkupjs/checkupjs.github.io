@@ -13,9 +13,29 @@ stored as part of the output.
 
 To add actions to a plugin for a task, use the following command:
 
+<Tabs
+  groupId='package-manager-flavor'
+  defaultValue='npx'
+  values={[
+    { label: 'npx', value: 'npx' },
+    { label: 'Yarn', value: 'yarn' },
+  ]}
+>
+  <TabItem value='npx'>
+
+```bash
+npx checkup generate actions <actions name>
+```
+
+  </TabItem>
+  <TabItem value='yarn'>
+
 ```bash
 yarn checkup generate actions <actions name>
 ```
+
+  </TabItem>
+</Tabs>
 
 You'll be prompted to identify the task you want to add the actions to.
 

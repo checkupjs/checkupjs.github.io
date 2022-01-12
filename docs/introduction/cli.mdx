@@ -8,13 +8,13 @@ The following are some of the most commonly used commands:
 ### Get help information
 
 ```bash
-yarn checkup --help
+[yarn|npx] checkup --help
 ```
 
 ### Run all configured Tasks in the current directory
 
 ```bash
-yarn checkup run .
+[yarn|npx] checkup run .
 ```
 
 ### Run checkup using a custom configuration path or URL
@@ -22,65 +22,65 @@ yarn checkup run .
 By path:
 
 ```bash
-yarn checkup run --config ./some/path/.checkuprc
+[yarn|npx] checkup run --config ./some/path/.checkuprc
 ```
 
 By URL:
 
 ```bash
-yarn checkup run --config https://example.com/config.json
+[yarn|npx] checkup run --config https://example.com/config.json
 ```
 
 ### Run a single Task
 
 ```bash
-yarn checkup run . --task my-task
+[yarn|npx] checkup run . --task my-task
 ```
 
 ### Run Tasks by category
 
 ```bash
-yarn checkup run . --category my-category
+[yarn|npx] checkup run . --category my-category
 ```
 
 ### Run Tasks by group
 
 ```bash
-yarn checkup run . --group my-group
+[yarn|npx] checkup run . --group my-group
 ```
 
 ### Provide a custom format for output
 
 ```bash
-yarn checkup run . --format checkup-formatter-pretty
+[yarn|npx] checkup run . --format checkup-formatter-pretty
 ```
 
 ### Specify a different plugin directory to load plugins from
 
 ```bash
-yarn checkup run . --plugin-base-dir ./my-plugin-dir
+[yarn|npx] checkup run . --plugin-base-dir ./my-plugin-dir
 ```
 
 ### Generate a config file
 
 ```bash
-yarn checkup generate config
+[yarn|npx] checkup generate config
 ```
 
 ### Generate a plugin project
 
 ```bash
-yarn checkup generate plugin my-plugin
+[yarn|npx] checkup generate plugin my-plugin
 ```
 
 ### Generate a task in a plugin directory
 
 ```bash
-yarn checkup generate task my-task
+[yarn|npx] checkup generate task my-task
 ```
 
 ### Generate actions in a plugin directory
 
 ```bash
-yarn checkup generate action my-action
+[yarn|npx] checkup generate action my-action
 ```
